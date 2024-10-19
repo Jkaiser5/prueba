@@ -1,11 +1,14 @@
 package com.unu.poo2.controllers;
 
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 import com.unu.poo2.model.AutorModel;
 
@@ -29,9 +32,22 @@ public class AutoresControllers extends HttpServlet {
     		listar(request, response);
     		return;
     	}
+    	
+    	String operacion = request.getParameter("op");
+    	switch (operacion) {
+		case "listar": 
+			listar(request,response);
+			break;
+
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + operacion);
+		}
+    	
+    	
+    	
     }
     
-    private void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException
+    private void listar (HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException
     {
     	
     	request.setAttribute("listaAutores", modelo.listarAutores());
@@ -57,5 +73,9 @@ public class AutoresControllers extends HttpServlet {
 		//doGet(request, response);
 		processRequest(request, response);
 	}
+	
+	
+
+	
 	
 }
