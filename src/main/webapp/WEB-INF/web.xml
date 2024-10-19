@@ -19,4 +19,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>AutoresControllers2</display-name>
+    <servlet-name>AutoresControllers2</servlet-name>
+    <servlet-class>com.unu.poo2.controllers.AutoresControllers2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AutoresControllers2</servlet-name>
+    <url-pattern>/AutoresControllers2</url-pattern>
+  </servlet-mapping>
 </web-app>
