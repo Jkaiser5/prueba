@@ -47,6 +47,8 @@ public class AutoresControllers extends HttpServlet {
 		case "insertar":
 			insertar (request,response);
 			break;
+		case "obtener":
+			obtener(request, response);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + operacion);
 		}
@@ -78,13 +80,60 @@ public class AutoresControllers extends HttpServlet {
 			miAutor.setNombreAutor(request.getParameter("nombre"));
 			miAutor.setNacionalidad(request.getParameter("nacionalidad"));
 			
-		} catch (Exception e) {
+			if (modelo.insertarAutor(miAutor)>0) {
+				request.getSession().setAttribute("exito", "autor registrado exitadamente");
+				
+							
+			}
+			
+			else {
+				request.getSession().setAttribute("Fracaso", "esfuerzate pendex");
+				
+			}
+			
+			
+			response.sendRedirect(request.getContextPath()+"/AutoresControllers?op=listar");
+			
+		} catch (Exception ex) {
 			// TODO: handle exception
-			e.getStackTrace();
+			ex.getStackTrace();
 		}
     }
-    	
     
+    /*private void guardar (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	
+    	try {
+    		
+    		
+    		
+    	}catch (Exception e) {
+			// TODO: handle exception
+    		e.getStackTrace();
+		}
+    	
+    }*/
+    	
+    private void obtener (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	try {
+			
+    		String id = request.getParameter("id");
+    		autor miautor = modelo.obtenerAutor(Integer.parseInt(id));
+    		
+    		if (miautor!=null) {
+    			request.setAttribute("autor", miautor);
+    			request.getRequestDispatcher("/autores/editarAutor.jsp").forward(request, response);
+    			
+    		}
+    		else {
+    			response.sendRedirect(request.getContextPath()+"/error 404.jsp");
+    		}
+    		
+    		
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    }
             
     
 	/**

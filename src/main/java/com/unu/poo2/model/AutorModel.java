@@ -1,7 +1,9 @@
 package com.unu.poo2.model;
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +51,83 @@ public class AutorModel extends Conexion{
 		// TODO: handle exception
 		this.cerrarConexion();
 		return null;
+		}
 	}
+	
+	public int insertarAutor(autor autor) throws SQLException, IOException{
+		{
+			try {
+				int filasAfectadas=0;
+				String sql = "CAll sp_insertarAutor (?,?)";
+				this.abrirConexion();
+				cs = conexion.prepareCall(sql);
+				cs.setString(1, autor.getNombreAutor());
+				cs.setString(2, autor.getNacionalidad());
+				filasAfectadas = cs.executeUpdate();
+				this.cerrarConexion();
+				return filasAfectadas;
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+				e.getStackTrace();
+				this.cerrarConexion();
+				return 0;
+			}
+		}		
 	}
+	
+	
+	public autor obtenerAutor (int idautor) {
+		
+		autor autor = new autor();
+		
+		try {
+			
+			String sql = "CALL sp_obtenerAutor(?)";
+			this.abrirConexion();
+			cs=conexion.prepareCall(sql);
+			cs.setInt(1, idautor);
+			if (rs.next()) {
+				
+				autor.setIdAutor(rs.getInt("idautor"));
+				autor.setNombreAutor(rs.getString("nombre"));
+				autor.setNacionalidad(rs.getString("nacionaidad"));
+				this.cerrarConexion();				
 
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			this.cerrarConexion();
+			return null;
+		}
+		return autor;
+	}
+	
+	
+	public int modificarAutor(autor autor) throws SQLException, IOException{
+		{
+			try {
+				int filasAfectadas=0;
+				String sql = "CAll sp_modificarAutor (?,?,?)";
+				this.abrirConexion();
+				cs = conexion.prepareCall(sql);
+				cs.setInt(1, autor.getIdAutor());
+				cs.setString(2, autor.getNombreAutor());
+				cs.setString(3, autor.getNacionalidad());
+				filasAfectadas = cs.executeUpdate();
+				this.cerrarConexion();
+				return filasAfectadas;
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+				e.getStackTrace();
+				this.cerrarConexion();
+				return 0;
+			}
+		}		
+	}
+	
+	
 }
 

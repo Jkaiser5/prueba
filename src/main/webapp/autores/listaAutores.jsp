@@ -41,6 +41,12 @@
 			<td> <%=autor.getIdAutor() %></td>
 			<td> <%=autor.getNombreAutor() %></td>
 			<td> <%=autor.getNacionalidad() %></td>
+			<td> 
+			<a href="<%=url  %>AutoresControllers?op=obtener&id= <%=autor.getIdAutor() %>">Editar</a>
+			
+						
+			
+			</td>
 		
 		</tr>	
 		<%

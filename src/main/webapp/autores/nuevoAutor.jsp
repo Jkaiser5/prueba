@@ -24,6 +24,10 @@
 		
 		<input type="submit" value="Guardar" name="Guardar" /> 
 		<a href=" <%=url%>AutoresControllers?op=listar">Retornar</a>
+	
+	
+		
+		
 
 	</form>
 </body>
