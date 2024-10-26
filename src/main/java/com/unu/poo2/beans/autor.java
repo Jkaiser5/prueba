@@ -9,11 +9,12 @@ public class autor {
 		super();
 	}
 
-	public autor(int idAutor, String nacionalidad, String nombreAutor) {
+	public autor(int idAutor, String nombreAutor, String nacionalidad) {
 		super();
 		this.idAutor = idAutor;
+		this.NombreAutor = nombreAutor;
 		this.nacionalidad = nacionalidad;
-		NombreAutor = nombreAutor;
+		
 	}
 
 	public int getIdAutor() {
