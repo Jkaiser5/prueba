@@ -12,6 +12,7 @@
 <body>
 
 	<%
+	
 	String url = "http://localhost:8080/Proyecto_web/";
 	
 	autor autor;
@@ -32,7 +33,7 @@
 		
 		<input type="text" name="nombre" value ="<%=autor.getNombreAutor()%>" id="nombre" /> 
 		<label for="Nacionalidad" > Nacionalidad </label><br> <br>
-		<input type="text" name="nacionalidad" value ="<%=autor.getNacionalidad()%arg0)>" id="nacionalidad" /> 
+		<input type="text" name="nacionalidad" value ="<%=autor.getNacionalidad();%>" id="nacionalidad" /> 
 		
 		<input type="submit" value="Guardar" name="Guardar" /> 
 		<a href=" <%=url%>AutoresControllers?op=listar">Retornar</a>

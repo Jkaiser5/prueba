@@ -49,6 +49,12 @@ public class AutoresControllers extends HttpServlet {
 			break;
 		case "obtener":
 			obtener(request, response);
+			break;
+		case "modificar":
+			modificar(request, response);
+			break;
+		case "eliminar":
+			eliminar(request, response);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + operacion);
 		}
@@ -135,6 +141,62 @@ public class AutoresControllers extends HttpServlet {
 		}
     }
             
+    
+    private void modificar (HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException
+    {
+    	try {
+			autor miAutor = new autor();
+			miAutor.setIdAutor(Integer.parseInt(request.getParameter("id")));
+			miAutor.setNombreAutor(request.getParameter("nombre"));
+			miAutor.setNacionalidad(request.getParameter("nacionalidad"));
+			
+			if (modelo.modificarAutor(miAutor)>0) {
+				request.getSession().setAttribute("exito", "modificacion exitadamente");
+				
+							
+			}
+			
+			else {
+				request.getSession().setAttribute("Fracaso", "esfuerzate pendex");
+				
+			}
+			
+			
+			response.sendRedirect(request.getContextPath()+"/AutoresControllers?op=listar");
+			
+		} catch (Exception ex) {
+			// TODO: handle exception
+			ex.getStackTrace();
+		}
+    }
+    
+    
+    private void eliminar (HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException
+    {
+    	try {
+    		
+    		int id=Integer.parseInt(request.getParameter("id"));
+			
+			if (modelo.eliminarAutor(id)>0) 
+			{
+				request.getSession().setAttribute("exito", "eliminado exitadamente");
+				
+							
+			}
+			
+			else {
+				request.getSession().setAttribute("Fracaso", "esfuerzate pendex");
+				
+			}
+			
+			
+			response.sendRedirect(request.getContextPath()+"/AutoresControllers?op=listar");
+			
+		} catch (Exception ex) {
+			// TODO: handle exception
+			ex.getStackTrace();
+		}
+    }
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

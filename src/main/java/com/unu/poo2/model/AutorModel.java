@@ -48,6 +48,7 @@ public class AutorModel extends Conexion{
 		return lista;
 		
 	} catch (Exception e) {
+		e.printStackTrace();
 		// TODO: handle exception
 		this.cerrarConexion();
 		return null;
@@ -87,6 +88,7 @@ public class AutorModel extends Conexion{
 			this.abrirConexion();
 			cs=conexion.prepareCall(sql);
 			cs.setInt(1, idautor);
+			rs=cs.executeQuery();
 			if (rs.next()) {
 				
 				autor.setIdAutor(rs.getInt("idautor"));
@@ -128,6 +130,27 @@ public class AutorModel extends Conexion{
 		}		
 	}
 	
+	
+	public int eliminarAutor(int autor) throws SQLException, IOException{
+		{
+			try {
+				int filasAfectadas=0;
+				String sql = "CAll sp_eliminarAutor (?)";
+				this.abrirConexion();
+				cs = conexion.prepareCall(sql);
+				cs.setInt(1, autor);
+				filasAfectadas = cs.executeUpdate();
+				this.cerrarConexion();
+				return filasAfectadas;
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+				e.getStackTrace();
+				this.cerrarConexion();
+				return 0;
+			}
+		}		
+	}
 	
 }
 
